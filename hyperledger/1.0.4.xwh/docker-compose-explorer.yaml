@@ -1,0 +1,18 @@
+mysql:
+  image: mysql:5.7.17
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=123456
+
+blockchain-explorer:
+  image: yeasy/blockchain-explorer
+  ports:
+    - "8080:8080"
+  environment:
+    - HYP_REST_ENDPOINT=http://127.0.0.1:7050
+  command: node main.js
+  volumes:
+    - $PWD/explorer/config.json:/blockchain-explorer/config.json
+  links:
+    - mysql
